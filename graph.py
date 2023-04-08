@@ -1,3 +1,4 @@
+from random import randint
 import networkx as nx
 from typing import List
 import matplotlib.pyplot as plt
@@ -16,6 +17,7 @@ action_color_map = {
 
 class Graph:
     def __init__(self, edges: List) -> None:
+        plt.ion()
         self.edges = edges
         def sortByTimestamp(e):
             return e['ts']
@@ -24,7 +26,7 @@ class Graph:
 
         self.pos = 0
 
-        self.G = nx.MultiGraph()
+        self.G = nx.MultiDiGraph()
 
         self.nodes = {}
 
@@ -32,12 +34,18 @@ class Graph:
         for edge in self.edges:
             node_set.add(edge['origin'])
             node_set.add(edge['target'])
+
+        nodes_pos = {}
         
         for node in list(node_set):
             self.G.add_node(node)
             self.nodes[node] = {
                 "state": "NewRound"            
             }
+
+            nodes_pos[node] = [randint(0, 200), randint(0, 200)]
+        
+        self.layout = nx.layout.spring_layout(self.G, k=20, pos=nodes_pos, fixed=list(self.nodes))
     
     # add one edge to the graph
     def next(self):
@@ -45,9 +53,17 @@ class Graph:
             return False
         
         edge = self.edges[self.pos]
+
+        print(edge)
+        print(self.pos)
+
         self.pos += 1
 
         self.nodes[edge['target']]['state'] = edge['state']
+
+        edges2remove = [[e[0], e[1]] for e in self.G.edges 
+                        if [e[0], e[1]] == [edge['origin'], edge['target']] or [e[0], e[1]] == [edge['target'], edge['origin']] ]
+        self.G.remove_edges_from(edges2remove)
 
         self.G.add_edge(edge['origin'], edge['target'], 1, color = action_color_map[edge['action']])
 
@@ -59,12 +75,28 @@ class Graph:
     def draw(self):
         node_colors = []
 
-        nodes = list(self.nodes.keys())
-        nodes.sort()
+        for node in self.G.nodes:
+            node_colors.append(state_color_map[self.nodes[node]['state']]) 
+        
+        edge_colors = []
 
-        for node in nodes:
-            node_colors.append(state_color_map[self.nodes[node]['state']])
 
-        nx.draw(self.G, with_labels=True, node_color=node_colors,font_weight='bold', arrows=True, arrowstyle='->', arrowsize=10, width=2)
+        for (u,v,attrib_dict) in list(self.G.edges.data()):
+            edge_colors.append(attrib_dict['color'])
+
+        nx.draw(
+            self.G, 
+            pos=self.layout,
+            with_labels=True,
+            node_color=node_colors,
+            edge_color=edge_colors,
+            font_weight='bold',
+            arrows=True,
+            arrowstyle='->',
+            arrowsize=10,
+            width=2
+        )
+
         plt.show()
+        plt.pause(2)
 

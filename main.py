@@ -5,9 +5,9 @@ from graph import Graph
 if __name__ == '__main__':
     store = EdgeStore()
 
-    edges = store.pickByRound(2)
-    graph = Graph(edges)
+    edges = store.pickFromTo(0, 2)
 
+    graph = Graph(edges)
 
     while graph.next():
         graph.draw()
