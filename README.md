@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 Create table in MySQL
 
-![image-20230416145104481](/home/chan/.config/Typora/typora-user-images/image-20230416145104481.png)
+![image-20230416145104481](./examples/table.png)
 
 Configure database credentials in `db.py`
 
@@ -46,4 +46,4 @@ Before running the script every experiment, you have to clear the data table fir
 
 ### An example(f=2)
 
-![[video-to-gif output image]](https://im5.ezgif.com/tmp/ezgif-5-6622afb1a6.gif)
+![[video-to-gif output image]](./examples/example.gif)
