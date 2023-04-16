@@ -4,15 +4,21 @@ from typing import List
 import matplotlib.pyplot as plt
 
 state_color_map = {
-    'Prepared': 'red',
-    'Committed': 'blue',
-    'NewRound': 'green',
+    'Prepared': '#42d4f4',
+    'Committed': '#dcbeff',
+    'NewRound': '#808000',
+    'RoundChange': '#800000',
+    'FinalCommitted': '#911eb4',
 }
 
+# the nodes will only send actions once they already in that state except RoundChange
+# e.g. send NewRound 
 action_color_map = {
-    'PrePrepare': 'red',
-    'Prepare': 'blue',
-    'Commit': 'green',
+    'PrePrepare': '#000075',
+    'Prepare': '#42d4f4',
+    'Commit': '#dcbeff',
+    'NewRound': '#e6194B',
+    'RoundChange': '#800000'
 }
 
 class Graph:
@@ -61,6 +67,14 @@ class Graph:
 
         self.nodes[edge['target']]['state'] = edge['state']
 
+        # if edge['action'] == 'PrePrepare' or edge['action'] == 'Prepare':
+        #     self.nodes[edge['origin']]['state'] = 'Prepared'
+        # elif edge['action'] == 'Commit':
+        #     self.nodes[edge['origin']]['state'] = 'Committed'
+        # elif edge['action'] == 'NewRound':
+        #     self.nodes[edge['origin']]['state'] = 'NewRound'
+        
+
         edges2remove = [[e[0], e[1]] for e in self.G.edges 
                         if [e[0], e[1]] == [edge['origin'], edge['target']] or [e[0], e[1]] == [edge['target'], edge['origin']] ]
         self.G.remove_edges_from(edges2remove)
@@ -98,5 +112,5 @@ class Graph:
         )
 
         plt.show()
-        plt.pause(2)
+        plt.pause(0.5)
 

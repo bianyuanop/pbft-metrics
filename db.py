@@ -27,5 +27,16 @@ class EdgeStore:
 
         return result
 
+    def pickByNumMessages(self, count: int):
+        sql = f"SELECT * FROM edges ORDER BY ts LIMIT {count} "
+
+        cursor = self.conn.cursor()
+
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        return result
+        
+
 
         
