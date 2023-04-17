@@ -2,21 +2,21 @@
 
 ### Color Scheme
 
-| Action      | Color(Hex) |
-| ----------- | ---------- |
-| PrePrepare  | #000075    |
-| Prepare     | #42d4f4    |
-| Commit      | #dcbeff    |
-| NewRound    | #e6194b    |
-| RoundChange | #800000    |
+| Action      | Color(Hex) | Color                            |
+| ----------- | ---------- | -------------------------------- |
+| PrePrepare  | #000075    | ![navy](./examples/navy.png)     |
+| Prepare     | #42d4f4    | ![navy](./examples/cyan.png)     |
+| Commit      | #dcbeff    | ![navy](./examples/lavender.png) |
+| NewRound    | #e6194b    | ![navy](./examples/red.png)      |
+| RoundChange | #800000    | ![navy](./examples/maroon.png)   |
 
-| State          | Color(Hex) |
-| -------------- | ---------- |
-| Prepared       | #42d4f4    |
-| Committed      | #dcbeff    |
-| NewRound       | #808000    |
-| RoundChange    | #800000    |
-| FinalCommitted | #911eb4    |
+| State          | Color(Hex) | Color                            |
+| -------------- | ---------- | -------------------------------- |
+| Prepared       | #42d4f4    | ![navy](./examples/cyan.png)     |
+| Committed      | #dcbeff    | ![navy](./examples/lavender.png) |
+| NewRound       | #808000    | ![navy](./examples/olive.png)    |
+| RoundChange    | #800000    | ![navy](./examples/maroon.png)   |
+| FinalCommitted | #911eb4    | ![navy](./examples/purple.png)   |
 
 ### Mechanism
 
@@ -44,6 +44,12 @@ python main.py <count:number> # count here means how many messages you want to v
 
 Before running the script every experiment, you have to clear the data table first.
 
-### An example(f=2)
+### Examples
+
+#### f=1
 
 ![[video-to-gif output image]](./examples/example.gif)
+
+#### f=2
+
+![example2](./examples/example2.gif)
